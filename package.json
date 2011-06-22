@@ -1,0 +1,19 @@
+{
+  "author": "Brian M. Carlson <brian.m.carlson@gmail.com>",
+  "name": "keeper",
+  "description": "Work In Progress ORM",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/brianc/keeper.git"
+  },
+  "main": "lib/",
+  "scripts": {
+    "test": "node test/"
+  },
+  "engines": {
+    "node": "0.4.x"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
