@@ -8,9 +8,9 @@ test('User model', function(t) {
     fields:[{
       name: 'email'
     },{
-      name: 'firstname'
+      name: 'firstName'
     },{
-      name: 'lastname'
+      name: 'lastName'
     }]
   })
 
@@ -20,10 +20,11 @@ test('User model', function(t) {
   })
 
   t.test('can CRUD', function(t) {
+    t.timeout(3000); //set longer timeout
     var user = new User({
       email: 'test@example.com',
-      firstname: 'brian',
-      lastname: 'carlson'
+      firstName: 'brian',
+      lastName: 'carlson'
     })
     helper.user.clearAll(function(err) {
       if(err) return t.done(err);
@@ -35,16 +36,17 @@ test('User model', function(t) {
         User.get(user.id, function(err, user) {
           if(err) throw err;
           t.ok(user);
-          t.equal(user.firstname, 'brian');
-          t.equal(user.lastname, 'carlson');
+          t.equal(user.firstName, 'brian');
+          t.equal(user.lastName, 'carlson');
           t.equal(user.email, 'test@example.com');
-          user.firstname = 'bang';
-          user.lastname = 'cobra';
+          user.firstName = 'bang';
+          user.lastName = 'cobra';
           user.email = 'testing@example.com';
           user.update(function(err, updatedUser) {
             t.equal(err, null)
-            t.equal(updatedUser.firstname, 'bang');
-            t.equal(updatedUser.lastname, 'cobra');
+            t.ok(updatedUser);
+            t.equal(updatedUser.firstName, 'bang');
+            t.equal(updatedUser.lastName, 'cobra');
             t.equal(updatedUser.email, 'testing@example.com');
             user.destroy(function(err) {
               t.equal(err, null);
@@ -58,8 +60,8 @@ test('User model', function(t) {
 
   t.test('can find', function(t) {
     var user = new User({
-      firstname: 'boom',
-      lastname: 'example',
+      firstName: 'boom',
+      lastName: 'example',
       email: 'boom@example.com',
     })
     helper.user.clearAll(function() {
@@ -70,8 +72,8 @@ test('User model', function(t) {
           t.ok(users);
           t.equal(users.length, 1);
           var user = users[0];
-          t.equal(user.firstname, 'boom');
-          t.equal(user.lastname, 'example');
+          t.equal(user.firstName, 'boom');
+          t.equal(user.lastName, 'example');
           t.equal(user.email, 'boom@example.com')
           pg.end();
           t.done();

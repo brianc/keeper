@@ -16,7 +16,8 @@ keeper.logger = {
   }
 }
 var pg = require('pg');
-pg.defaults.password = process.ARGV[2];
+pg.defaults.password = process.ARGV[3];
+pg.defaults.host = process.ARGV[2];
 pg.defaults.user = 'postgres';
 pg.defaults.database = 'keep';
 
