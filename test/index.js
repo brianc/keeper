@@ -10,11 +10,11 @@ if(!module.parent) {
 }
 
 var keeper = require(__dirname + '/../lib');
-keeper.logger = {
-  debug: function() {
+// keeper.logger = {
+//   debug: function() {
     
-  }
-}
+//   }
+// }
 var pg = require('pg');
 pg.defaults.password = process.ARGV[3];
 pg.defaults.host = process.ARGV[2];

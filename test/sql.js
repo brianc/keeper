@@ -48,9 +48,17 @@ test('User model', function(t) {
             t.equal(updatedUser.firstName, 'bang');
             t.equal(updatedUser.lastName, 'cobra');
             t.equal(updatedUser.email, 'testing@example.com');
-            user.destroy(function(err) {
-              t.equal(err, null);
-              t.done();
+            User.all(function(err, users) {
+              if(err) throw err;
+              t.equal(users.length, 1);
+              user.destroy(function(err) {
+                t.equal(err, null);
+                User.all(function(err, users) {
+                  if(err) throw err;
+                  t.equal(users.length, 0);
+                  t.done();
+                })
+              })
             })
           });
         })
