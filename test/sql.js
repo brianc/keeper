@@ -11,6 +11,9 @@ test('User model', function(t) {
       name: 'firstName'
     },{
       name: 'lastName'
+    },{
+      name: 'active',
+      defaultValue: false
     }]
   })
 
