@@ -128,14 +128,22 @@ test('User model', function(t) {
   })
 
   test('default values', function(t) {
-    var user = new User({email: 'test@example.com'});
+    var user = new User({email: 'test@example.com', firstName: 'foo'});
     user.create(function(err, u) {
       if(err) throw err;
       console.log(u);
-      t.strictEqual(u.firstName, null);
+      t.strictEqual(u.firstName, 'foo');
       t.strictEqual(u.lastName, null);
       t.strictEqual(u.active, false);
-      pg.end()
+      t.test('finding by case sensitive columns', function(t) {
+        User.find({firstName: 'foo'}, function(err, res) {
+          if(err) throw err;
+          t.equal(res.length, 1);
+          t.equal(res[0].firstName, 'foo')
+          pg.end()
+          t.done();
+        })
+      })
       t.done();
     })
 
