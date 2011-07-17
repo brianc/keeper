@@ -89,5 +89,39 @@ test('User model', function(t) {
       })
     })
   })
+
+  t.test('update only changes 1 record', function(t) {
+    t.timeout(5000)
+    var user1 = new User({
+      firstName: 'user',
+      lastName: 'one',
+      email: 'one@example.com'
+    })
+
+    var user2 = new User({
+      firstName: 'user',
+      lastName: 'two',
+      email: 'two@example.com'
+    })
+
+    helper.user.clearAll(function() {
+      user1.create(function(err) {
+        if(err) throw err;
+        user2.create(function(err, u) {
+          if(err) throw err;
+          user1.firstName = 'boom';
+          user1.update(function(err, user) {
+            if(err) throw err;
+            User.find({id: u.id}, function(err, users) {
+              if(err) throw err;
+              t.equal(users[0].firstName, 'user')
+              pg.end();
+              t.done()
+            })
+          });
+        })
+      })
+    })
+  })
   t.done();
 })
