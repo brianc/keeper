@@ -126,5 +126,20 @@ test('User model', function(t) {
       })
     })
   })
+
+  test('default values', function(t) {
+    var user = new User({email: 'test@example.com'});
+    user.create(function(err, u) {
+      if(err) throw err;
+      console.log(u);
+      t.strictEqual(u.firstName, null);
+      t.strictEqual(u.lastName, null);
+      t.strictEqual(u.active, false);
+      pg.end()
+      t.done();
+    })
+
+  })
+
   t.done();
 })
